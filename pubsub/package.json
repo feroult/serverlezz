@@ -1,0 +1,15 @@
+{
+  "name": "pubsub",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Fernando Ultremare <feroult@gmail.com> (http://github.com/feroult)",
+  "license": "ISC",
+  "dependencies": {
+    "@google-cloud/pubsub": "^0.8.3",
+    "yargs": "^7.0.2"
+  }
+}
