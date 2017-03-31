@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const pubsub = require('./pubsub');
+const pubsub = require('./clients/pubsub');
 
 const argv = require('yargs')
     .demandOption('t')

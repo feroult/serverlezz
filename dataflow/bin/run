@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+class=$1
+project=$2
+bucket=gs://$3
+zone=us-central1-a
+
+mvn exec:java -Dexec.mainClass="$class" -e -Dexec.args="--project=$project --sinkProject=$project --stagingLocation=$bucket --runner=DataflowPipelineRunner --streaming=true --numWorkers=3 --zone=$zone"
