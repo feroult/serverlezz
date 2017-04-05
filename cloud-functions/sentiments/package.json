@@ -1,0 +1,15 @@
+{
+  "name": "sentiments",
+  "version": "1.0.0",
+  "description": "",
+  "main": "twitter-stream.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Fernando Ultremare <feroult@gmail.com> (http://github.com/feroult)",
+  "license": "ISC",
+  "dependencies": {
+    "request": "^2.81.0",
+    "twit": "^2.2.5"
+  }
+}
