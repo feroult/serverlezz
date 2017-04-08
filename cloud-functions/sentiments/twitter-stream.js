@@ -1,5 +1,9 @@
 #!/usr/bin/env node
 
+const argv = require('yargs')
+    .argv;
+
+
 const request = require('request');
 const T = require('./clients/twitter');
 
@@ -20,13 +24,18 @@ stream.on('tweet', (tweet) => {
         }
     };
 
-    request.get('https://us-central1-serverlezz.cloudfunctions.net/smsNL', options, (err, res) => {
-        if (res.statusCode === 200) {
-            console.log(`Tweet: '${text}'`);
-        } else {
-            console.error('error', err);
-        }
-    });
+    if (!argv.f) {
+        request.get('https://us-central1-serverlezz.cloudfunctions.net/smsNL', options, (err, res) => {
+            if (res.statusCode === 200) {
+                console.log(`Tweet: '${text}'`);
+            } else {
+                console.error('error', err);
+            }
+        });
+    } else {
+        console.log('flushing', text);
+    }
+
 
 });
 
