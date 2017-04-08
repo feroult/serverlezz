@@ -29,7 +29,7 @@ stream.on('tweet', (tweet) => {
             if (res.statusCode === 200) {
                 console.log(`Tweet: '${text}'`);
             } else {
-                console.error('error', err);
+                console.error('.');
             }
         });
     } else {
