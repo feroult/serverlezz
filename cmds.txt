@@ -1,0 +1,2 @@
+gcloud alpha functions deploy smsNL --stage-bucket serverlezz --trigger-http
+gcloud beta functions logs read --execution-id tvfbwh8zumo9

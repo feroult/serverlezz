@@ -1,7 +1,7 @@
 const PubSub = require('@google-cloud/pubsub');
 
 const pubsubClient = PubSub({
-    projectId: 'serverlezz',
+    projectId: 'ratecard-1470747960702',
     keyFilename: 'keyfile.json'
 });
 

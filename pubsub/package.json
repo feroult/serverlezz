@@ -9,8 +9,8 @@
   "author": "Fernando Ultremare <feroult@gmail.com> (http://github.com/feroult)",
   "license": "ISC",
   "dependencies": {
-    "@google-cloud/pubsub": "^0.8.3",
+    "@google-cloud/pubsub": "^0.12.0",
     "twit": "^2.2.5",
-    "yargs": "^7.0.2"
+    "yargs": "^8.0.1"
   }
 }
