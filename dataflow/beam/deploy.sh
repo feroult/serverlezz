@@ -1,13 +1,13 @@
 #!/bin/sh
 
 read -d '' CMD << EOF
-    java -jar build/libs/dataflow-all-1.0.jar
-         --project=traffic-flow-app
-         --sinkProject=traffic-flow-app
-         --bigQueryTable=traffic-flow-app:demo.events
+    java -jar build/libs/beam-all-1.0.jar
+         --project=beam-test-app
+         --sinkProject=beam-test-app
+         --bigQueryTable=beam-test-app:test.messages
          --zone=us-east1-c
          --streaming
-         --stagingLocation=gs://traffic-flow-app/staging
+         --stagingLocation=gs://beam-test-app/staging
          --runner=DataflowRunner
          --numWorkers=1 --maxNumWorkers=3
 EOF

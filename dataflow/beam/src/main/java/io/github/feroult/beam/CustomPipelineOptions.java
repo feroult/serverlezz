@@ -45,7 +45,7 @@ public interface CustomPipelineOptions extends DataflowPipelineOptions {
 
     void setSinkTopic(String value);
 
-    @Default.String("beam-test-app:demo.events")
+    @Default.String("beam-test-app:test.messages")
     @Validation.Required
     String getBigQueryTable();
 
