@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-const translate = require('./clients/translate');
 const language = require('./clients/language');
 
 const argv = require('yargs')
@@ -9,15 +8,12 @@ const argv = require('yargs')
 
 const text = argv.t;
 
-translate.translate(text, {from: 'pt-BR', to: 'en'})
-    .then((results) => {
-            const translation = results[0];
+const document = {
+    type: 1,
+    content: text
+};
 
-            console.log(`Text: ${text}`);
-            console.log(`Translation: ${translation}`);
-
-            language.annotate(translation, {verbose: true}, function (err, annotation) {
-                console.log('annotation', annotation.sentiment);
-            });
-        }
-    );
+language.analyzeSentiment({document: document}, function (err, response) {
+    console.log('language', response.language);
+    console.log('annotation', response.documentSentiment);
+});
