@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+const util = require('util');
 const language = require('./clients/language');
 
 const argv = require('yargs')
@@ -13,7 +14,26 @@ const document = {
     content: text
 };
 
-language.analyzeSentiment({document: document}, function (err, response) {
-    console.log('language', response.language);
-    console.log('annotation', response.documentSentiment);
-});
+const features = {
+    extractSyntax: true,
+    extractEntities: true,
+    extractDocumentSentiment: true,
+    extractEntitySentiment: false
+};
+
+const request = {
+    document: document,
+    features: features
+};
+
+language.annotateText(request)
+    .then(function (response) {
+        log(response);
+    })
+    .catch(function (err) {
+        log(err);
+    });
+
+function log(object) {
+    console.log(util.inspect(object, {showHidden: false, depth: null}))
+}
