@@ -1,0 +1,32 @@
+/* custom styles can go here */
+
+#chapter-foo p {
+    text-transform: uppercase;
+}
+
+#subtitle {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 30px;
+    text-align: center;
+    color: yellow;
+    font-size: +2em;
+    font-family: Verdana;
+}
+
+span.highlight {
+    color: #e06c75;
+}
+
+.reveal section img {
+    border: 0px;
+}
+
+.reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5 {
+    letter-spacing: 2px;
+}
+
+.reveal p {
+    margin: 0;
+}
