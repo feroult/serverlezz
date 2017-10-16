@@ -1,0 +1,15 @@
+{
+  "name": "speech",
+  "version": "1.0.0",
+  "description": "",
+  "main": "recognize.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Fernando Ultremare <feroult@gmail.com> (http://github.com/feroult)",
+  "license": "ISC",
+  "dependencies": {
+    "@google-cloud/speech": "^0.10.3",
+    "node-record-lpcm16": "^0.3.0"
+  }
+}
