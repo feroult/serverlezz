@@ -38,7 +38,7 @@ function recordStart() {
         .on('data', (data) => {
             const result = data.results[0] && data.results[0].alternatives[0];
             if (result) {
-                console.log('data', data, result);
+                // console.log('data', data, result);
                 console.log(`Transcription: ${result.transcript}`);
                 send(result.transcript);
             } else {

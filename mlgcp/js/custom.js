@@ -34,7 +34,6 @@ head.ready("firebase.js", function () {
         if (init) {
             const text = snap.val().text;
             $('#subtitle').html(text);
-            console.log('ha', text);
         }
     });
 
