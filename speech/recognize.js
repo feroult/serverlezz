@@ -16,7 +16,7 @@ firebase.initializeApp({
     databaseURL: 'https://serverlezz.firebaseio.com'
 });
 
-function listen() {
+function recordStart() {
     const encoding = 'LINEAR16';
     const sampleRateHertz = 16000;
     const languageCode = 'pt_BR';
@@ -37,6 +37,7 @@ function listen() {
             const result = data.results[0] && data.results[0].alternatives[0];
             if (result) {
                 send(result.transcript);
+                // console.log('result', result, data.results[0]);
                 console.log(`Transcription: ${result.transcript}`);
             } else {
                 console.log(`\n\nReached transcription time limit, press Ctrl+C`);
@@ -57,6 +58,7 @@ function listen() {
         .pipe(recognizeStream);
 
     console.log('Listening, press Ctrl+C to stop.');
+
 }
 
 function send(text) {
@@ -65,4 +67,12 @@ function send(text) {
 }
 
 
-listen();
+function loop() {
+    recordStart();
+    setTimeout(() => {
+        record.stop();
+        loop();
+    }, 60 * 1000);
+}
+
+loop();
