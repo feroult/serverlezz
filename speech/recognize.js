@@ -25,7 +25,9 @@ function recordStart() {
         config: {
             encoding: encoding,
             sampleRateHertz: sampleRateHertz,
-            languageCode: languageCode
+            languageCode: languageCode,
+            // enableWordTimeOffsets: true
+            // profanityFilter: true
         },
         interimResults: true
     };
@@ -36,9 +38,9 @@ function recordStart() {
         .on('data', (data) => {
             const result = data.results[0] && data.results[0].alternatives[0];
             if (result) {
-                send(result.transcript);
-                // console.log('result', result, data.results[0]);
+                console.log('data', data, result);
                 console.log(`Transcription: ${result.transcript}`);
+                send(result.transcript);
             } else {
                 console.log(`\n\nReached transcription time limit, press Ctrl+C`);
             }
