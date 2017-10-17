@@ -36,11 +36,12 @@ function recordStart() {
     const recognizeStream = speech.streamingRecognize(request)
         .on('error', console.error)
         .on('data', (data) => {
-            const result = data.results[0] && data.results[0].alternatives[0];
-            if (result) {
-                // console.log('data', data, result);
-                console.log(`Transcription: ${result.transcript}`);
-                send(result.transcript);
+            const result = data.results[0] && data.results[0];
+            const alternative = result.alternatives[0];
+            if (alternative) {
+                console.log('data', data, alternative);
+                console.log(`Transcription: ${alternative.transcript}`);
+                send(alternative.transcript, result.isFinal);
             } else {
                 console.log(`\n\nReached transcription time limit, press Ctrl+C`);
             }
@@ -63,9 +64,12 @@ function recordStart() {
 
 }
 
-function send(text) {
+function send(text, isFinal) {
     const ref = firebase.database().ref('subtitles').push();
-    ref.set({text: text});
+    ref.set({
+        text: text,
+        isFinal: isFinal
+    });
 }
 
 

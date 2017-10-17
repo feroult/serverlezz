@@ -33,7 +33,8 @@ head.ready("firebase.js", function () {
     ref.on('child_added', function (snap) {
         if (init) {
             const text = snap.val().text;
-            $('#subtitle').html(text);
+            const isFinal = snap.val().isFinal;
+            $('#subtitle').html('<span class=\"' + (isFinal ? 'is-final' : '') + '\">' + text + '</span>');
         }
     });
 
