@@ -21,12 +21,19 @@
     color: #00ff4d;
 }
 
-span.highlight {
+span.hl1 {
     color: #e06c75;
 }
 
+span.hl2 {
+    color: #00ff4d;
+}
+
+
 .reveal section img {
     border: 0px;
+    background: none;
+    box-shadow: none;
 }
 
 .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5 {
