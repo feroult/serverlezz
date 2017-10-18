@@ -21,6 +21,22 @@
     color: #00a2ff;
 }
 
+span.green {
+    color: #3cba54;
+}
+
+span.yellow {
+    color: #f4c20d;
+}
+
+span.red {
+    color: #db3236;
+}
+
+span.blue {
+    color: #4885ed;
+}
+
 span.hl1 {
     color: #e06c75;
 }
