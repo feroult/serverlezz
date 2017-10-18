@@ -29,7 +29,6 @@ span.hl2 {
     color: #00ff4d;
 }
 
-
 .reveal section img {
     border: 0px;
     background: none;
@@ -47,16 +46,17 @@ span.hl2 {
 /* slides */
 
 .reveal div.code {
+    margin-top: 30px;
     width: 40%;
-    height: 200px;
-    line-height: 200px;
-    background-color: #292929;
+    height: 240px;
+    line-height: 240px;
+    background-color: #323232;
     border-radius: 20%;
     margin-left: auto;
     margin-right: auto;
     font-size: 1.4em;
-    font-weight: bold;
-    box-shadow: 2px 2px 4px 1px #c6c6c6;
+    /*font-weight: bold;*/
+    /*box-shadow: 2px 2px 4px 1px #e601ff;*/
     font-family: Menlo;
 }
 
