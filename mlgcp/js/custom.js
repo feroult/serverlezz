@@ -1,7 +1,14 @@
 // Custom JS code can go here
 
+const MAX_SUBTITLE = 80;
+
+const OPEN_SUBTITLE_KEY = '⌘+u';
+const CLOSE_SUBTITLE_KEY = '⌘+i';
+
 var enableCommands = false;
 var fullSubtitles = false;
+var currentSubtitle;
+var subtitleTimer;
 
 // You can customize Reveal options:
 Reveal.configure({
@@ -14,7 +21,7 @@ Reveal.configure({
 head.js("https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js");
 head.js("https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js");
 head.js("https://www.gstatic.com/firebasejs/4.5.0/firebase.js");
-
+head.js("https://cdnjs.cloudflare.com/ajax/libs/keymaster/1.6.1/keymaster.min.js");
 
 head.ready("jquery.min.js", function () {
     const $ = jQuery;
@@ -25,6 +32,11 @@ head.ready("firebase.js", function () {
     firebaseInit();
     handleSubtitles();
     handleCommands();
+});
+
+head.ready("keymaster.min.js", function () {
+    key(OPEN_SUBTITLE_KEY, cmdOpenSubtitles);
+    key(CLOSE_SUBTITLE_KEY, cmdCloseSubtitles);
 });
 
 function firebaseInit() {
@@ -48,9 +60,39 @@ function handleSubtitles() {
     var init = false;
     ref.on('child_added', function (snap) {
         if (init) {
-            const text = snap.val().text;
-            const isFinal = snap.val().isFinal;
-            $('#subtitle').html('<span class=\"' + (isFinal ? 'is-final' : '') + '\">' + text + '</span>');
+            var text = snap.val().text;
+            var isFinal = snap.val().isFinal;
+
+            if (!fullSubtitles) {
+                if (text.length > MAX_SUBTITLE) {
+                    text = text.substr(text.length - MAX_SUBTITLE);
+                }
+
+                $('#subtitle').html('<span class=\"' + (isFinal ? 'is-final' : '') + '\">' + text + '</span>');
+
+                if (subtitleTimer) {
+                    clearTimeout(subtitleTimer);
+                }
+
+                if (isFinal) {
+                    subtitleTimer = setTimeout(function () {
+                        $('#subtitle').html('');
+                    }, 5000);
+                }
+
+            } else {
+                if (!isFinal) {
+                    if (!currentSubtitle) {
+                        currentSubtitle = $('<span />');
+                        $('#subtitle').append(currentSubtitle);
+                    }
+                    currentSubtitle.html(text);
+                } else {
+                    currentSubtitle.html(text + '. ');
+                    currentSubtitle.addClass('is-final');
+                    currentSubtitle = null;
+                }
+            }
         }
     });
 
@@ -88,11 +130,11 @@ function handleCommands() {
                 return;
             }
             if (cmd.action === "open-subtitles") {
-                cmdOpenSubtitles(cmd);
+                cmdOpenSubtitles(cmd.params.times);
                 return;
             }
             if (cmd.action === "close-subtitles") {
-                cmdCloseSubtitles(cmd);
+                cmdCloseSubtitles(cmd.params.times);
                 return;
             }
 
@@ -104,19 +146,19 @@ function handleCommands() {
     });
 }
 
-function cmdNext(cmd) {
-    for (var i = 0; i < cmd.params.times; i++) {
+function cmdNext(times) {
+    for (var i = 0; i < times; i++) {
         Reveal.next();
     }
 }
 
-function cmdPrevious(cmd) {
-    for (var i = 0; i < cmd.params.times; i++) {
+function cmdPrevious(times) {
+    for (var i = 0; i < times; i++) {
         Reveal.prev();
     }
 }
 
-function cmdOpenSubtitles(cmd) {
+function cmdOpenSubtitles() {
     if (fullSubtitles) {
         return;
     }
@@ -124,9 +166,13 @@ function cmdOpenSubtitles(cmd) {
     $('#subtitle').removeClass('normal');
     $('#subtitle').addClass('full');
     $('.reveal .slides').addClass('blur');
+    $('#subtitle').html('');
+    if (subtitleTimer) {
+        clearTimeout(subtitleTimer);
+    }
 }
 
-function cmdCloseSubtitles(cmd) {
+function cmdCloseSubtitles() {
     if (!fullSubtitles) {
         return;
     }
@@ -134,4 +180,8 @@ function cmdCloseSubtitles(cmd) {
     $('#subtitle').removeClass('full');
     $('#subtitle').addClass('normal');
     $('.reveal .slides').removeClass('blur');
+    $('#subtitle').html('');
+    if (subtitleTimer) {
+        clearTimeout(subtitleTimer);
+    }
 }

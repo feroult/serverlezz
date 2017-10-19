@@ -5,27 +5,35 @@
 }
 
 #subtitle {
-    text-align: center;
-    color: white;
-    font-size: 2em;
+    color: #aaa;
     font-family: Verdana;
 }
 
 #subtitle.normal {
-    margin-left: 2%;
-    margin-right: 2%;
-    margin-bottom: 25px;
+    height: 50px;
+    line-height: 50px;
+    background: #222222 url('../images/chat.png') no-repeat 5px center;
+    padding-left: 55px;
+    /*border-top: 1px solid #555;*/
+    font-size: 1.5em;
+    text-align: left;
+    /*padding-left: 2%;*/
+    /*padding-right: 2%;*/
     position: fixed;
     bottom: 0;
-    width: 96%;
+    width: 100%;
 }
 
 #subtitle.full {
+    font-size: 2.5em;
+    text-align: left;
+    line-height: 1.4em;
+    padding: 4%;
     background-color: black;
-    opacity: 0.90;
-    padding: 30px;
-    width: 100%;
-    height: 100%;
+    opacity: 0.95;
+    /*margin: 30px;*/
+    width: 92%;
+    height: 92%;
     z-index: 10;
     top: 0;
     left: 0;
@@ -37,7 +45,7 @@
 }
 
 #subtitle .is-final {
-    color: #00a2ff;
+    color: white;
 }
 
 span.green {
