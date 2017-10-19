@@ -1,5 +1,8 @@
 // Custom JS code can go here
 
+var enableCommands = false;
+var fullSubtitles = false;
+
 // You can customize Reveal options:
 Reveal.configure({
     center: false,
@@ -15,14 +18,13 @@ head.js("https://www.gstatic.com/firebasejs/4.5.0/firebase.js");
 
 head.ready("jquery.min.js", function () {
     const $ = jQuery;
-    $('<div id="subtitle" />').appendTo('body');
+    $('<div id="subtitle" class="normal" />').appendTo('body');
 });
 
 head.ready("firebase.js", function () {
-    const $ = jQuery;
     firebaseInit();
-    handleSubtitles($);
-    handleCommands($);
+    handleSubtitles();
+    handleCommands();
 });
 
 function firebaseInit() {
@@ -37,7 +39,9 @@ function firebaseInit() {
     firebase.initializeApp(config);
 }
 
-function handleSubtitles($) {
+function handleSubtitles() {
+    const $ = jQuery;
+
     const db = firebase.database();
     const ref = db.ref('subtitles');
 
@@ -55,9 +59,7 @@ function handleSubtitles($) {
     });
 }
 
-var enableCommands = false;
-
-function handleCommands($) {
+function handleCommands() {
     const db = firebase.database();
     const ref = db.ref('commands');
 
@@ -85,6 +87,15 @@ function handleCommands($) {
                 cmdPrevious(cmd);
                 return;
             }
+            if (cmd.action === "open-subtitles") {
+                cmdOpenSubtitles(cmd);
+                return;
+            }
+            if (cmd.action === "close-subtitles") {
+                cmdCloseSubtitles(cmd);
+                return;
+            }
+
         }
     });
 
@@ -105,3 +116,22 @@ function cmdPrevious(cmd) {
     }
 }
 
+function cmdOpenSubtitles(cmd) {
+    if (fullSubtitles) {
+        return;
+    }
+    fullSubtitles = true;
+    $('#subtitle').removeClass('normal');
+    $('#subtitle').addClass('full');
+    $('.reveal .slides').addClass('blur');
+}
+
+function cmdCloseSubtitles(cmd) {
+    if (!fullSubtitles) {
+        return;
+    }
+    fullSubtitles = false;
+    $('#subtitle').removeClass('full');
+    $('#subtitle').addClass('normal');
+    $('.reveal .slides').removeClass('blur');
+}
