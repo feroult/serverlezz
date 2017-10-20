@@ -103,3 +103,34 @@ span.hl2 {
     font-family: Menlo;
 }
 
+/* sms demo */
+#emojis .emoji {
+    position: absolute;
+    font-size: 60px;
+}
+
+#emojis .text {
+    position: absolute;
+    font-size: 0.4em;
+    /*font-family: Verdana;*/
+    background-color: #777;
+    border-radius: 10px;
+    padding: 20px;
+    margin-left: 5px;
+    box-shadow: 2px 2px 2px #000;
+    /*padding: 10px 10px 10px 2px;*/
+    text-align: left;
+    /*white-space: nowrap;*/
+    min-width: 3%;
+}
+
+#emojis .emoji.fadeout {
+    opacity: 0.1;
+    transition: opacity 2s linear;
+}
+
+#emojis .text.fadeout {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s 2s, opacity 2s linear;
+}

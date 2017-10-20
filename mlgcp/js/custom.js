@@ -2,8 +2,11 @@
 
 const MAX_SUBTITLE = 80;
 
-const OPEN_SUBTITLE_KEY = '⌘+u';
-const CLOSE_SUBTITLE_KEY = '⌘+i';
+const OPEN_SUBTITLE_KEY = 'u';
+const CLOSE_SUBTITLE_KEY = 'i';
+
+const START_SMS_KEY = 'j';
+const STOP_SMS_KEY = 'k';
 
 var enableCommands = false;
 var fullSubtitles = false;
@@ -22,6 +25,7 @@ head.js("https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js");
 head.js("https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js");
 head.js("https://www.gstatic.com/firebasejs/4.5.0/firebase.js");
 head.js("https://cdnjs.cloudflare.com/ajax/libs/keymaster/1.6.1/keymaster.min.js");
+head.js("js/sms.js");
 
 head.ready("jquery.min.js", function () {
     const $ = jQuery;
@@ -37,6 +41,8 @@ head.ready("firebase.js", function () {
 head.ready("keymaster.min.js", function () {
     key(OPEN_SUBTITLE_KEY, cmdOpenSubtitles);
     key(CLOSE_SUBTITLE_KEY, cmdCloseSubtitles);
+    key(START_SMS_KEY, cmdStartSms);
+    key(STOP_SMS_KEY, cmdStopSms);
 });
 
 function firebaseInit() {
@@ -184,4 +190,12 @@ function cmdCloseSubtitles() {
     if (subtitleTimer) {
         clearTimeout(subtitleTimer);
     }
+}
+
+function cmdStartSms() {
+    SMS.start();
+}
+
+function cmdStopSms() {
+    SMS.stop();
 }
