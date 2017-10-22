@@ -137,12 +137,7 @@ span.hl2 {
 
 /** examples **/
 .reveal .examples {
-    position: absolute;
-    width: 1000px;
-    height: 500px;
-    left: 50%;
-    margin-left: -500px;
-    /*background-color: tomato;*/
+    width: 960px;
 }
 
 .reveal .example {
@@ -152,7 +147,7 @@ span.hl2 {
 
 .reveal .example img {
     border-radius: 10%;
-    width: 300px;
+    width: 280px;
 }
 
 .reveal .credit {
@@ -162,5 +157,4 @@ span.hl2 {
     text-align: center;
     width: 100%;
     font-weight: bold;
-    /*left: 50%;*/
 }
