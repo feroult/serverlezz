@@ -154,3 +154,13 @@ span.hl2 {
     border-radius: 10%;
     width: 300px;
 }
+
+.reveal .credit {
+    font-size: 0.5em;
+    position: fixed;
+    bottom: 40px;
+    text-align: center;
+    width: 100%;
+    font-weight: bold;
+    /*left: 50%;*/
+}
