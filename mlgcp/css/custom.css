@@ -158,3 +158,37 @@ span.hl2 {
     width: 100%;
     font-weight: bold;
 }
+
+/** boxes **/
+
+.reveal .box2 {
+    margin-top: 8%;
+    display: flex;
+}
+
+.reveal .left-box {
+    flex: 0 0 50%;
+    /*background-color: green;*/
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+}
+
+.reveal .right-box {
+    flex: 1;
+    /*background-color: tomato;*/
+    text-align: left;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding-bottom: 14px;
+}
+
+.reveal .box2 img {
+    vertical-align: middle;
+}
+
+.reveal .right-box div {
+    line-height: 2em;
+    /*padding-bottom: 10px;*/
+}
