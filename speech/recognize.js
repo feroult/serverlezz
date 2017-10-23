@@ -29,7 +29,8 @@ function recordStart() {
             // enableWordTimeOffsets: true
             // profanityFilter: true
         },
-        interimResults: true
+        interimResults: true,
+        singleUtterance: true
     };
 
     // Create a recognize stream
@@ -37,14 +38,17 @@ function recordStart() {
         .on('error', console.error)
         .on('data', (data) => {
             const result = data.results[0] && data.results[0];
-            const alternative = result.alternatives[0];
-            if (alternative) {
-                console.log('data', data, alternative);
-                console.log(`Transcription: ${alternative.transcript}`);
-                send(alternative.transcript, result.isFinal);
-            } else {
-                console.log(`\n\nReached transcription time limit, press Ctrl+C`);
+
+            if (!result || !result.alternatives || result.alternatives.length === 0) {
+                // Reached transcription time limit
+                restart();
+                return;
             }
+
+            const alternative = result.alternatives[0];
+            console.log('data', data, alternative);
+            console.log(`Transcription: ${alternative.transcript}`);
+            send(alternative.transcript, result.isFinal);
         });
 
     // Start recording and send the microphone input to the Speech API
@@ -73,11 +77,15 @@ function send(text, isFinal) {
 }
 
 
+function restart() {
+    record.stop();
+    loop();
+}
+
 function loop() {
     recordStart();
     setTimeout(() => {
-        record.stop();
-        loop();
+        restart();
     }, 60 * 1000);
 }
 
