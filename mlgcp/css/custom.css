@@ -167,11 +167,8 @@ span.hl2 {
 }
 
 .reveal .left-box {
-    flex: 0 0 50%;
+    flex: 0 0 42%;
     /*background-color: green;*/
-    display: inline-block;
-    vertical-align: middle;
-    height: 100%;
 }
 
 .reveal .right-box {
@@ -188,7 +185,8 @@ span.hl2 {
     vertical-align: middle;
 }
 
-.reveal .right-box div {
+.reveal .right-box p {
     line-height: 2em;
+    color: #bbb;
     /*padding-bottom: 10px;*/
 }
