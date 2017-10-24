@@ -27,17 +27,21 @@
 #subtitle.full {
     font-size: 2.5em;
     text-align: left;
-    line-height: 1.4em;
-    padding: 4%;
+    line-height: 1.6em;
+    padding: 0;
     background-color: black;
     opacity: 0.95;
     /*margin: 30px;*/
-    width: 92%;
-    height: 92%;
+    width: 100%;
+    height: 100%;
     z-index: 10;
     top: 0;
     left: 0;
     position: fixed;
+}
+
+#subtitle-content {
+    padding: 40px;
 }
 
 .reveal .slides.blur {

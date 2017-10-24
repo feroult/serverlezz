@@ -90,13 +90,17 @@ function handleSubtitles() {
                 if (!isFinal) {
                     if (!currentSubtitle) {
                         currentSubtitle = $('<span />');
-                        $('#subtitle').append(currentSubtitle);
+                        $('#subtitle-content').append(currentSubtitle);
                     }
                     currentSubtitle.html(text);
                 } else {
                     currentSubtitle.html(text + '. ');
                     currentSubtitle.addClass('is-final');
                     currentSubtitle = null;
+                }
+
+                if ($('#subtitle-content')[0].scrollHeight >= $('#subtitle')[0].scrollHeight) {
+                    $('#subtitle-content').html(currentSubtitle);
                 }
             }
         }
@@ -172,7 +176,7 @@ function cmdOpenSubtitles() {
     $('#subtitle').removeClass('normal');
     $('#subtitle').addClass('full');
     $('.reveal .slides').addClass('blur');
-    $('#subtitle').html('');
+    $('#subtitle').html('<div id="subtitle-content" />');
     if (subtitleTimer) {
         clearTimeout(subtitleTimer);
     }

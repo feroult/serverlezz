@@ -30,7 +30,7 @@ function recordStart() {
             // profanityFilter: true
         },
         interimResults: true,
-        singleUtterance: true
+        // singleUtterance: true
     };
 
     // Create a recognize stream
@@ -41,15 +41,19 @@ function recordStart() {
 
             if (!result || !result.alternatives || result.alternatives.length === 0) {
                 // Reached transcription time limit
-                restart();
+                // restart();
                 return;
             }
 
             const alternative = result.alternatives[0];
-            console.log('data', data, alternative);
-            console.log(`Transcription: ${alternative.transcript}`);
+            // console.log('data', data, alternative);
+            console.log(`final=${result.isFinal}, transcription: ${alternative.transcript}`);
             send(alternative.transcript, result.isFinal);
+        })
+        .on('end', () => {
+            loop();
         });
+
 
     // Start recording and send the microphone input to the Speech API
     record
@@ -57,12 +61,13 @@ function recordStart() {
             sampleRateHertz: sampleRateHertz,
             threshold: 0,
             // Other options, see https://www.npmjs.com/package/node-record-lpcm16#options
-            verbose: false,
+            // verbose: true,
             recordProgram: 'rec', // Try also "arecord" or "sox"
-            silence: '10.0'
+            silence: '0:00.500',
         })
         .on('error', console.error)
         .pipe(recognizeStream);
+
 
     console.log('Listening, press Ctrl+C to stop.');
 
@@ -77,16 +82,24 @@ function send(text, isFinal) {
 }
 
 
+// loop
+
+let timeout;
+
 function restart() {
+    if (timeout) {
+        clearTimeout(timeout);
+    }
     record.stop();
     loop();
 }
 
 function loop() {
     recordStart();
-    setTimeout(() => {
-        restart();
-    }, 60 * 1000);
+    // timeout = setTimeout(() => {
+    //     record.stop();
+    //     loop();
+    // }, 60 * 1000);
 }
 
 loop();
