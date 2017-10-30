@@ -144,9 +144,15 @@ span.hl2 {
     width: 960px;
 }
 
+
 .reveal .example {
-    display: inline-block;
+    display: inline-grid;
     padding: 10px;
+}
+
+.reveal .example span {
+    font-size: 0.6em;
+    font-weight: bold;
 }
 
 .reveal .example img {
@@ -193,4 +199,8 @@ span.hl2 {
     line-height: 2em;
     color: #bbb;
     /*padding-bottom: 10px;*/
+}
+
+.reveal .logos img {
+    width: 150px;
 }

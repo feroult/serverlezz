@@ -1,3 +1,5 @@
+const commands = true;
+
 // speech init
 const record = require('node-record-lpcm16');
 const Speech = require('@google-cloud/speech');
@@ -30,7 +32,7 @@ function recordStart() {
             // profanityFilter: true
         },
         interimResults: true,
-        // singleUtterance: true
+        singleUtterance: commands
     };
 
     // Create a recognize stream
@@ -49,6 +51,11 @@ function recordStart() {
             // console.log('data', data, alternative);
             console.log(`final=${result.isFinal}, transcription: ${alternative.transcript}`);
             send(alternative.transcript, result.isFinal);
+
+            if(result.isFinal && commands) {
+                record.stop();
+                loop();
+            }
         })
         .on('end', () => {
             loop();
