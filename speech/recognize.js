@@ -1,4 +1,4 @@
-const commands = true;
+let commands = false;
 
 // speech init
 const record = require('node-record-lpcm16');
@@ -47,19 +47,32 @@ function recordStart() {
         loop();
     }
 
+    function toggleCommands(transcript) {
+        if (transcript.toLowerCase().indexOf('habilitar comando') != -1 && !commands) {
+            console.log('enabling commands...');
+            commands = true;
+            stop();
+        } else if (transcript.toLowerCase().indexOf('desabilitar comando') != -1 && commands) {
+            console.log('disabling commands...');
+            commands = false;
+            stop();
+        }
+    }
+
     const recognizeStream = speech.streamingRecognize(request)
         .on('error', console.error)
         .on('data', (data) => {
             const result = data.results[0] && data.results[0];
 
             if (!result || !result.alternatives || result.alternatives.length === 0) {
-                stop();
+                // stop();
                 return;
             }
 
             const alternative = result.alternatives[0];
-            // console.log('data', data, alternative);
+            console.log('data', data, alternative);
             console.log(`final=${result.isFinal}, transcription: ${alternative.transcript}`);
+            toggleCommands(alternative.transcript);
             send(alternative.transcript, result.isFinal);
 
             if (result.isFinal && commands) {

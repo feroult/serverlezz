@@ -63,10 +63,11 @@ function handleSubtitles() {
     const db = firebase.database();
     const ref = db.ref('subtitles');
 
+    var lastText = '';
     var init = false;
     ref.on('child_added', function (snap) {
         if (init) {
-            var text = snap.val().text;
+            var text = lastText + snap.val().text;
             var isFinal = snap.val().isFinal;
 
             if (!fullSubtitles) {
@@ -81,6 +82,7 @@ function handleSubtitles() {
                 }
 
                 if (isFinal) {
+                    // lastText = text + ". ";
                     subtitleTimer = setTimeout(function () {
                         $('#subtitle').html('');
                     }, 5000);
