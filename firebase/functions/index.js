@@ -30,10 +30,10 @@ exports.detectCommands = functions.database.ref('/subtitles/{subId}')
         const subId = event.params.subId;
         const text = event.data.val().text;
 
-        // const isFinal = event.data.val().isFinal;
-        // if (!isFinal) {
-        //     return Promise.resolve();
-        // }
+        const isFinal = event.data.val().isFinal;
+        if (!isFinal) {
+            return Promise.resolve();
+        }
 
         return askForCommand(subId, text).then((response) => {
             if (response.result.action === 'input.unknown') {
