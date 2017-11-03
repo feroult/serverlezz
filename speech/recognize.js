@@ -70,7 +70,7 @@ function recordStart() {
             }
 
             const alternative = result.alternatives[0];
-            console.log('data', data, alternative);
+            // console.log('data', data, alternative);
             console.log(`final=${result.isFinal}, transcription: ${alternative.transcript}`);
             toggleCommands(alternative.transcript);
             send(alternative.transcript, result.isFinal);
