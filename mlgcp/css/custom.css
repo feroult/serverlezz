@@ -7,6 +7,12 @@
 #subtitle {
     color: #aaa;
     font-family: Verdana;
+    overflow-y: scroll;
+}
+
+#subtitle span {
+    display: block;
+    width: 90%;
 }
 
 #subtitle.normal {

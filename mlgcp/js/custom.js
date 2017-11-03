@@ -1,7 +1,5 @@
 // Custom JS code can go here
 
-const MAX_SUBTITLE = 80;
-
 const OPEN_SUBTITLE_KEY = 'u';
 const CLOSE_SUBTITLE_KEY = 'i';
 
@@ -57,37 +55,30 @@ function firebaseInit() {
     firebase.initializeApp(config);
 }
 
+
 function handleSubtitles() {
     const $ = jQuery;
 
     const db = firebase.database();
     const ref = db.ref('subtitles');
 
-    var lastText = '';
     var init = false;
     ref.on('child_added', function (snap) {
         if (init) {
-            var text = lastText + snap.val().text;
+            var text = snap.val().text;
             var isFinal = snap.val().isFinal;
 
             if (!fullSubtitles) {
-                if (text.length > MAX_SUBTITLE) {
-                    text = text.substr(text.length - MAX_SUBTITLE);
-                }
-
-                $('#subtitle').html('<span class=\"' + (isFinal ? 'is-final' : '') + '\">' + text + '</span>');
+                $('#subtitle').html('<span class=\"' + (isFinal ? '' : '') + '\">' + text + '</span>');
+                $('#subtitle').scrollTop($('#subtitle')[0].scrollHeight)
 
                 if (subtitleTimer) {
                     clearTimeout(subtitleTimer);
                 }
 
-                if (isFinal) {
-                    // lastText = text + ". ";
-                    subtitleTimer = setTimeout(function () {
-                        $('#subtitle').html('');
-                    }, 5000);
-                }
-
+                subtitleTimer = setTimeout(function () {
+                    $('#subtitle').html('');
+                }, 5000);
             } else {
                 if (!isFinal) {
                     if (!currentSubtitle) {
