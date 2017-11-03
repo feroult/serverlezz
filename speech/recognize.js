@@ -36,14 +36,24 @@ function recordStart() {
     };
 
     // Create a recognize stream
+    let stopped = false;
+
+    function stop() {
+        if (stopped) {
+            return;
+        }
+        stopped = true;
+        record.stop();
+        loop();
+    }
+
     const recognizeStream = speech.streamingRecognize(request)
         .on('error', console.error)
         .on('data', (data) => {
             const result = data.results[0] && data.results[0];
 
             if (!result || !result.alternatives || result.alternatives.length === 0) {
-                // Reached transcription time limit
-                // restart();
+                stop();
                 return;
             }
 
@@ -52,13 +62,12 @@ function recordStart() {
             console.log(`final=${result.isFinal}, transcription: ${alternative.transcript}`);
             send(alternative.transcript, result.isFinal);
 
-            if(result.isFinal && commands) {
-                record.stop();
-                loop();
+            if (result.isFinal && commands) {
+                stop();
             }
         })
         .on('end', () => {
-            loop();
+            stop();
         });
 
 
@@ -70,7 +79,7 @@ function recordStart() {
             // Other options, see https://www.npmjs.com/package/node-record-lpcm16#options
             // verbose: true,
             recordProgram: 'rec', // Try also "arecord" or "sox"
-            silence: '0:00.500',
+            silence: '0:02.000',
         })
         .on('error', console.error)
         .pipe(recognizeStream);
