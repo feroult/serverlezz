@@ -51,10 +51,12 @@ function recordStart() {
         if (transcript.toLowerCase().indexOf('habilitar comando') != -1 && !commands) {
             console.log('enabling commands...');
             commands = true;
+            send('habilitar comandos', true);
             stop();
         } else if (transcript.toLowerCase().indexOf('desabilitar comando') != -1 && commands) {
             console.log('disabling commands...');
             commands = false;
+            send('desabilitar comandos', true);
             stop();
         }
     }
@@ -65,7 +67,7 @@ function recordStart() {
             const result = data.results[0] && data.results[0];
 
             if (!result || !result.alternatives || result.alternatives.length === 0) {
-                // stop();
+                stop();
                 return;
             }
 

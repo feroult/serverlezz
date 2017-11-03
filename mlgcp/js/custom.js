@@ -64,6 +64,10 @@ function handleSubtitles() {
 
     var init = false;
     ref.on('child_added', function (snap) {
+        if (enableCommands) {
+            return;
+        }
+
         if (init) {
             var text = snap.val().text;
             var isFinal = snap.val().isFinal;
@@ -112,9 +116,10 @@ function handleCommands() {
     ref.on('child_added', function (snap) {
         if (init) {
             const cmd = snap.val();
-            console.log('cmd', cmd);
+            console.log('enable', enableCommands, 'cmd', cmd);
             if (cmd.action === "enable") {
                 enableCommands = true;
+                $('#subtitle').html('');
                 return;
             }
             if (cmd.action === "disable") {
@@ -125,19 +130,19 @@ function handleCommands() {
                 return;
             }
             if (cmd.action === "next") {
-                cmdNext(cmd);
+                cmdNext(cmd.params.times);
                 return;
             }
             if (cmd.action === "previous") {
-                cmdPrevious(cmd);
+                cmdPrevious(cmd.params.times);
                 return;
             }
             if (cmd.action === "open-subtitles") {
-                cmdOpenSubtitles(cmd.params.times);
+                cmdOpenSubtitles();
                 return;
             }
             if (cmd.action === "close-subtitles") {
-                cmdCloseSubtitles(cmd.params.times);
+                cmdCloseSubtitles();
                 return;
             }
 
