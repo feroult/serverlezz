@@ -28,6 +28,9 @@ function recordStart() {
             encoding: encoding,
             sampleRateHertz: sampleRateHertz,
             languageCode: languageCode,
+            speechContexts: [{
+                phrases: ["avançar", "voltar", "slide", "slides"]
+            }],
             // enableWordTimeOffsets: true
             // profanityFilter: true
         },

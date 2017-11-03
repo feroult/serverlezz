@@ -64,9 +64,9 @@ function handleSubtitles() {
 
     var init = false;
     ref.on('child_added', function (snap) {
-        if (enableCommands) {
-            return;
-        }
+        // if (enableCommands) {
+        //     return;
+        // }
 
         if (init) {
             var text = snap.val().text;
@@ -124,6 +124,7 @@ function handleCommands() {
             }
             if (cmd.action === "disable") {
                 enableCommands = false;
+                $('#subtitle').html('');
                 return;
             }
             if (!enableCommands) {
