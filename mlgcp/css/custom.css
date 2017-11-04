@@ -31,6 +31,7 @@
 }
 
 #subtitle.full {
+    overflow-y: hidden !important;
     font-size: 2.5em;
     text-align: left;
     line-height: 1.6em;
@@ -149,7 +150,6 @@ span.hl2 {
 .reveal .examples {
     width: 960px;
 }
-
 
 .reveal .example {
     display: inline-grid;

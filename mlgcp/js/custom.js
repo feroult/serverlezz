@@ -72,6 +72,9 @@ function handleSubtitles() {
             var text = snap.val().text;
             var isFinal = snap.val().isFinal;
 
+
+            console.log('full', fullSubtitles);
+
             if (!fullSubtitles) {
                 $('#subtitle').html('<span class=\"' + (isFinal ? '' : '') + '\">' + text + '</span>');
                 $('#subtitle').scrollTop($('#subtitle')[0].scrollHeight)
