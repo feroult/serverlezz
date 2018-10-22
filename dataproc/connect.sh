@@ -6,5 +6,5 @@ gcloud compute ssh \
     --ssh-flag="-N" \
     --ssh-flag="-L" \
     --ssh-flag="8123:localhost:8123" \
-    "data-proc-fest-m"
+    "data-fest-demo-m"
 
