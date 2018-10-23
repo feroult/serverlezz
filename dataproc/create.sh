@@ -2,6 +2,6 @@
 
 gcloud dataproc clusters create data-fest-demo \
     --zone=us-east1 \
-    --bucket data-proc-fest \
+    --bucket data-fest-proc \
     --num-workers 2 \
-    --initialization-actions gs://data-proc-fest/scripts/init.sh
+    --initialization-actions gs://data-fest-proc/scripts/init.sh
