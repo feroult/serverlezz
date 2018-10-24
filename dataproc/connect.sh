@@ -1,7 +1,7 @@
 #!/bin/bash -xe
 
 gcloud compute ssh \
-    --zone=us-east1 \
+    --zone=us-east1-b \
     --ssh-flag="-f" \
     --ssh-flag="-N" \
     --ssh-flag="-L" \
